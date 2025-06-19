@@ -4,6 +4,5 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 
 export default defineConfig({
-  site: 'https://CristianArevaloDuran.github.io',
-  base: 'Portfolio',
+  site: 'https://CristianArevaloDuran.github.io'
 })
