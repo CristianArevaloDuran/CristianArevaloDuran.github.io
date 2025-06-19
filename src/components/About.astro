@@ -1,0 +1,133 @@
+---
+import ExpEdu from '../components/ExpEdu/ExpEdu.astro';
+---
+<section class="about" id="about">
+    <header class="hero">
+        <h1 data-i18n="nav.about"></h1>
+    </header>
+    <section class="content">
+        <p data-i18n="about.content"></p>
+    </section>
+    <section class="exp-edu">
+        <header class="title">
+            <h2 data-i18n="exp/edu.title"></h2>
+        </header>
+        <div class="exp-edu-content">
+            <ExpEdu />
+        </div>
+    </section>
+</section>
+
+<style>
+    .about {
+        scroll-margin-top: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(68, 68, 68, 0.37);
+        box-shadow: 0 5px 8px rgb(0, 0, 0);
+        backdrop-filter: blur(10px);
+        width: 70%;
+        margin: 200px auto 50px;
+        padding: 50px;
+        border-radius: 30px;
+        position: relative;
+    }
+    .about::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        padding: 5px;
+        border-radius: 30px;
+        background: linear-gradient(45deg, #ff61c02d, #2621ac41);
+        -webkit-mask: 
+          linear-gradient(#fff 0 0) content-box, 
+          linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+        pointer-events: none;
+        z-index: -1;
+    }
+    .about .hero {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        padding: 20px 30px;
+        background-color: #007BFF;
+        top: -50px;
+        border-radius: 30px;
+        box-shadow: 0 5px 8px rgba(0, 0, 0, 0.5);
+    }
+    .about .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        padding: 5px;
+        border-radius: 30px;
+        background: linear-gradient(45deg, #ff61c0, #2621ac);
+        -webkit-mask: 
+          linear-gradient(#fff 0 0) content-box, 
+          linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+        pointer-events: none;
+        z-index: 1;
+    }
+    .about .hero h1 {
+        font-size: 2.5rem;
+        color: #fff;
+        text-align: center;
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+    .about .content {
+        font-family: 'Poppins', sans-serif;
+        color: #fff;
+        font-size: 1.2rem;
+        text-align: center;
+        margin-top: 20px;
+    }
+    .about .exp-edu {
+        width: 100%;
+    }
+    .about .exp-edu .title {
+        font-family: 'Poppins', sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    .about .exp-edu .title h2 {
+        position: relative;
+        color: #fff;
+        background-color: #007BFF;
+        font-weight: bold;
+        font-size: 25px;
+        padding: 15px 25px;
+        border-radius: 10px;
+        box-shadow: 0 5px 8px rgb(0, 0, 0);
+        z-index: 2;
+    }
+    .about .exp-edu .title h2::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        padding: 5px;
+        border-radius: 10px;
+        background: linear-gradient(45deg, #ff61c0, #2621ac);
+        -webkit-mask: 
+          linear-gradient(#fff 0 0) content-box, 
+          linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+        pointer-events: none;
+        z-index: 1;
+    }
+    .about .exp-edu .exp-edu-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+</style>

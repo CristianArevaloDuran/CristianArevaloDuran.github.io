@@ -1,0 +1,99 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+import type { CollectionEntry } from 'astro:content';
+
+
+const allProjects: CollectionEntry<'projects'>[] = await getCollection('projects');
+---
+
+<section id="projects" class="project-list">
+  <header class="hero">
+    <h1 data-i18n="projects.title"></h1>
+  </header>
+  {allProjects.map((project) => (
+    <div class="project" data-lang={project.data.lang}>
+      <ProjectCard project={project} />
+    </div>
+  ))}
+</section>
+
+<style>
+  .project-list {
+      scroll-margin-top: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(68, 68, 68, 0.37);
+      box-shadow: 0 5px 8px rgb(0, 0, 0);
+      backdrop-filter: blur(10px);
+      width: 70%;
+      margin: 200px auto 50px;
+      padding: 50px;
+      border-radius: 30px;
+  }
+  .project-list::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      padding: 5px;
+      border-radius: 30px;
+      background: linear-gradient(45deg, #ff61c02d, #2621ac41);
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+      z-index: -1;
+  }
+  .project-list .hero {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      padding: 20px 30px;
+      background-color: #007BFF;
+      top: -50px;
+      border-radius: 30px;
+      box-shadow: 0 5px 8px rgba(0, 0, 0, 0.5);
+  }
+  .project-list .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      padding: 5px;
+      border-radius: 30px;
+      background: linear-gradient(45deg, #ff61c0, #2621ac);
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+      z-index: 1;
+  }
+  .project-list .hero h1 {
+      font-size: 2.5rem;
+      color: #fff;
+      text-align: center;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+  }
+  .project-list .project {
+    margin: 20px 0 10px 0;
+  }
+</style>
+
+<script type="module">
+  function updateProjects() {
+    const userLang = localStorage.getItem('language') || 'es';
+
+    document.querySelectorAll('.project').forEach((el) => {
+      el.style.display = el.dataset.lang === userLang ? 'flex' : 'none';
+    });
+  }
+  updateProjects();
+  window.addEventListener('languageChanged', updateProjects);
+</script>
+

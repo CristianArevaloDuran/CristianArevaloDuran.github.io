@@ -1,0 +1,243 @@
+---
+// src/components/LanguageSwitcher.astro
+---
+<div class="language-buttons">
+    <button id="spanish" class="language-btn" aria-label="Cambiar idioma">
+        <span data-i18n="es.button"></span>
+    </button>
+    <button id="english" class="language-btn" aria-label="Cambiar idioma">
+        <span data-i18n="en.button"></span>
+    </button>
+</div>
+
+<style>
+    .language-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #fff;
+        border: 5px solid #007BFF;
+    }
+  .language-btn {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background: transparent;
+    border: none;
+    overflow: hidden;
+    color: #000;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 0;
+  }
+  .language-btn::before {
+    content: '';
+    width: 150%;
+    height: 0;
+    background-color: #007BFF;
+    position: absolute;
+    right: -10px;
+    bottom: -10px;
+    transition: all .25s ease;
+    z-index: -1;
+  }
+  .active {
+    color: #fff;
+  }
+
+  .active::before {
+    height: 150%;
+  }
+
+  @media screen and (max-width: 950px) {
+    .language-buttons {
+        margin-right: 15px;
+    }
+    
+    .language-btn {
+        padding: 8px 12px;
+    }
+    
+  }
+
+</style>
+
+<script>
+
+  function getCurrentLanguage(): Language {
+    return (localStorage.getItem('language') as Language) || 'es';
+  }
+
+  function setSpanish() {
+    const currentLang = getCurrentLanguage();
+    if (currentLang === 'es') {
+        return;
+    };
+
+    document.getElementById('spanish')?.classList.add('active');
+    document.getElementById('english')?.classList.remove('active');
+
+    const newLang = 'es';
+
+    localStorage.setItem('language', newLang);
+    applyTranslations(newLang);
+
+    window.dispatchEvent(new CustomEvent('languageChanged', { 
+      detail: { language: newLang } 
+    }));
+  }
+
+  function setEnglish() {
+    const currentLang = getCurrentLanguage();
+    if (currentLang === 'en') {
+        return;
+    };
+    document.getElementById('spanish')?.classList.remove('active');
+    document.getElementById('english')?.classList.add('active');
+    
+    const newLang = 'en';
+
+    localStorage.setItem('language', newLang);
+    applyTranslations(newLang);
+
+    window.dispatchEvent(new CustomEvent('languageChanged', { 
+      detail: { language: newLang } 
+    }));
+  }
+
+  // Tipos para TypeScript
+  type Language = 'es' | 'en';
+  type TranslationKey = 
+    | 'page.title'
+    | 'es.button'
+    | 'en.button'
+    | 'nav.home'
+    | 'nav.about'
+    | 'nav.projects'
+    | 'nav.contact'
+    | 'hero.title'
+    | 'hero.subtitle'
+    | 'cv.resume'
+    | 'more.about-link'
+    | 'about.title'
+    | 'about.content'
+    | 'exp/edu.title'
+    | 'exp/edu.sena1.title'
+    | 'exp/edu.sena1.date'
+    | 'exp/edu.sena2.title'
+    | 'exp/edu.sena2.date'
+    | 'exp/edu.rappi.title'
+    | 'exp/edu.rappi.date'
+    | 'exp/edu.universidad.title'
+    | 'exp/edu.universidad.date'
+    | 'projects.title'
+    | 'project.gallery'
+    | 'contact.title'
+    | 'contact.email';
+
+  // Función para aplicar traducciones
+  function applyTranslations(lang: Language) {
+    const elements = document.querySelectorAll('[data-i18n]');
+    
+    elements.forEach(element => {
+      const key = element.getAttribute('data-i18n') as TranslationKey;
+      const translation = translations[lang]?.[key];
+      
+      if (translation) {
+        element.innerHTML = translation;
+      }
+    });
+  }
+
+  // Diccionario de traducciones
+  const translations: Record<Language, Record<TranslationKey, string>> = {
+    es: {
+        'page.title': 'Portafolio - Cristian Arévalo',
+        'es.button': 'Español',
+        'en.button': 'Inglés',
+        'nav.home': 'Inicio',
+        'nav.about': 'Sobre mí',
+        'nav.projects': 'Proyectos',
+        'nav.contact': 'Contacto',
+        'hero.title': 'Desarrollador Full Stack',
+        'hero.subtitle': 'Desarrollador Full Stack con enfoque en construir experiencias intuitivas y funcionales. Me gusta crear aplicaciones web que resuelvan problemas reales, cuidando tanto la parte visual como el funcionamiento interno. Trabajo con tecnologías como <span class="high">Next.js y Node.js</span>, y disfruto aprender constantemente mientras desarrollo interfaces limpias, sistemas organizados y funcionalidades útiles.',
+        'cv.resume': '<a href="./Cristian-Arevalo-cv-esp.pdf.pdf" download class="download"><span>Obtén mi CV</span><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-file-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2l.117 .007a1 1 0 0 1 .876 .876l.007 .117v4l.005 .15a2 2 0 0 0 1.838 1.844l.157 .006h4l.117 .007a1 1 0 0 1 .876 .876l.007 .117v9a3 3 0 0 1 -2.824 2.995l-.176 .005h-10a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-14a3 3 0 0 1 2.824 -2.995l.176 -.005zm0 8a1 1 0 0 0 -1 1v3.585l-.793 -.792a1 1 0 0 0 -1.32 -.083l-.094 .083a1 1 0 0 0 0 1.414l2.5 2.5l.044 .042l.068 .055l.11 .071l.114 .054l.105 .035l.15 .03l.116 .006l.117 -.007l.117 -.02l.108 -.033l.081 -.034l.098 -.052l.092 -.064l.094 -.083l2.5 -2.5a1 1 0 0 0 0 -1.414l-.094 -.083a1 1 0 0 0 -1.32 .083l-.793 .791v-3.584a1 1 0 0 0 -.883 -.993zm2.999 -7.001l4.001 4.001h-4z" /></svg></a>',
+        'more.about-link': 'Conoce más sobre mí',
+        'about.title': 'Sobre mí',
+        'about.content': 'Hola 🙋‍♂️, soy Cristian Arévalo, tecnólogo en Análisis y Desarrollo de Sistemas de Información, actualmente en formación como ingeniero en Sistemas y Computación. Me apasiona el desarrollo web full stack, donde disfruto construir soluciones completas que integren tanto una buena experiencia visual como una estructura sólida en el backend. Tengo experiencia creando interfaces dinámicas y amigables con tecnologías como HTML, CSS, JavaScript y frameworks como React o Next.js. En el backend, trabajo con Node.js y PHP, y manejo bases de datos tanto SQL como NoSQL, lo que me permite desarrollar aplicaciones funcionales y escalables. Me gusta trabajar en proyectos que representen un reto, donde pueda seguir aprendiendo y aplicando buenas prácticas de desarrollo. Valoro la organización, la claridad en el código y el enfoque en el usuario.',
+        'exp/edu.title': 'Experiencia y Educación',
+        'exp/edu.sena1.title': 'Técnico en Sistemas',
+        'exp/edu.sena1.date': '2018 - 2020',
+        'exp/edu.sena2.title': 'Tecnólogo en Análisis y Desarrollo de Sistemas',
+        'exp/edu.sena2.date': '2021 - 2023',
+        'exp/edu.rappi.title': 'Prácticas en Rappi',
+        'exp/edu.rappi.date': 'Agosto 2022 - Enero 2023',
+        'exp/edu.universidad.title': 'Ingeniería de Sistemas y Computación',
+        'exp/edu.universidad.date': '2023 - En curso',
+        'projects.title': 'Mis Proyectos',
+        'project.gallery': 'Galería del Proyecto',
+        'contact.title': 'Contacto',
+        'contact.email': 'Enviar Email',
+    },
+    en: {
+        'page.title': 'Portfolio - Cristian Arévalo',
+        'es.button': 'Spanish',
+        'en.button': 'English',
+        'nav.home': 'Home',
+        'nav.about': 'About me',
+        'nav.projects': 'Projects',
+        'nav.contact': 'Contact',
+        'hero.title': 'Full Stack Developer',
+        'hero.subtitle': 'Full Stack Developer focused on building intuitive and functional experiences. I enjoy creating web applications that solve real problems, taking care of both the visual aspect and the internal workings. I work with technologies like <span class="high">Next.js and Node.js</span>, and I love learning continuously while developing clean interfaces, organized systems, and useful functionalities.',
+        'cv.resume': '<a href="./Cristian-Arevalo-cv-eng.pdf" download class="download"><span>Get my CV</span><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-file-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2l.117 .007a1 1 0 0 1 .876 .876l.007 .117v4l.005 .15a2 2 0 0 0 1.838 1.844l.157 .006h4l.117 .007a1 1 0 0 1 .876 .876l.007 .117v9a3 3 0 0 1 -2.824 2.995l-.176 .005h-10a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-14a3 3 0 0 1 2.824 -2.995l.176 -.005zm0 8a1 1 0 0 0 -1 1v3.585l-.793 -.792a1 1 0 0 0 -1.32 -.083l-.094 .083a1 1 0 0 0 0 1.414l2.5 2.5l.044 .042l.068 .055l.11 .071l.114 .054l.105 .035l.15 .03l.116 .006l.117 -.007l.117 -.02l.108 -.033l.081 -.034l.098 -.052l.092 -.064l.094 -.083l2.5 -2.5a1 1 0 0 0 0 -1.414l-.094 -.083a1 1 0 0 0 -1.32 .083l-.793 .791v-3.584a1 1 0 0 0 -.883 -.993zm2.999 -7.001l4.001 4.001h-4z" /></svg></a>',
+        'more.about-link': 'Learn more about me',
+        'about.title': 'About Me',
+        'about.content': `Hi 🙋‍♂️, I'm Cristian Arévalo, a technology professional in Analysis and Development of Information Systems, currently in formation as a Systems and Computing Engineer. I'm passionate about full stack web development, where I enjoy building complete solutions that integrate both a good visual experience and a solid backend structure. I have experience creating dynamic and user-friendly interfaces with technologies like HTML, CSS, JavaScript, and frameworks like React or Next.js. On the backend, I work with Node.js and PHP, and I handle both SQL and NoSQL databases, allowing me to develop functional and scalable applications. I enjoy working on projects that represent a challenge, where I can continue learning and applying good development practices. I value organization, clarity in code, and a user-focused approach.`,
+        'exp/edu.title': 'Experience and Education',
+        'exp/edu.sena1.title': 'Systems Technician',
+        'exp/edu.sena1.date': '2018 - 2020',
+        'exp/edu.sena2.title': 'Technology in Analysis and Development of Systems',
+        'exp/edu.sena2.date': '2021 - 2023',
+        'exp/edu.rappi.title': 'Internship at Rappi',
+        'exp/edu.rappi.date': 'August 2022 - January 2023',
+        'exp/edu.universidad.title': 'Systems and Computing Engineering',
+        'exp/edu.universidad.date': '2023 - Ongoing',
+        'projects.title': 'My Projects',
+        'project.gallery': 'Project Gallery',
+        'contact.title': 'Contact',
+        'contact.email': 'Send Email',
+    }
+  };
+
+  // Inicializar cuando se carga la página
+  document.addEventListener('DOMContentLoaded', () => {
+    const currentLang = getCurrentLanguage();
+    applyTranslations(currentLang);
+    
+    // Agregar event listener al botón
+    const buttonEs = document.getElementById('spanish');
+    const buttonEn = document.getElementById('english');
+
+    
+
+    if (buttonEn && buttonEs) {
+        if (currentLang === 'es') {
+            buttonEs.classList.add('active');
+            buttonEn.classList.remove('active');
+        } else {
+            buttonEs.classList.remove('active');
+            buttonEn.classList.add('active');
+        }
+        buttonEn.addEventListener('click', setEnglish);
+        buttonEs.addEventListener('click', setSpanish);
+        window.dispatchEvent(new CustomEvent('languageChanged'));
+    }
+  });
+</script>

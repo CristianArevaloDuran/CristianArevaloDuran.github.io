@@ -1,0 +1,239 @@
+---
+export interface Props {
+  project: {
+    data: {
+      title: string;
+      description: string;
+      image?: string;
+      tags?: string[];
+      lang: string;
+      github: string;
+      demo?: string;
+      gallery?: string[];
+    };
+    body: string;
+  };
+}
+
+const { project } = Astro.props;
+---
+
+<article class="project-card">
+    <h3 class="">{project.data.title}</h3>
+    <p>{project.data.description}</p>
+    <p class="body">{project.body}</p>
+  {
+    project.data.tags && (
+      <ul class="">
+        {project.data.tags.map((tag) => (
+          <li class="">{tag}</li>
+        ))}
+      </ul>
+  )}
+  <div class="img-wrapper">
+    <div class="img-overlay">
+      <div class="actions">
+        <a href={project.data.github} target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 97.707 97.707" data-astro-cid-xhaoqxbd=""><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" data-astro-cid-xhaoqxbd=""></path> </svg>
+          Github
+        </a>
+        <button
+          data-gallery-button 
+          data-gallery={JSON.stringify(project.data.gallery || [])}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-library-photo" viewBox="2 2 20 20"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M7 3m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z"></path><path d="M4.012 7.26a2.005 2.005 0 0 0 -1.012 1.737v10c0 1.1 .9 2 2 2h10c.75 0 1.158 -.385 1.5 -1"></path><path d="M17 7h.01"></path><path d="M7 13l3.644 -3.644a1.21 1.21 0 0 1 1.712 0l3.644 3.644"></path><path d="M15 12l1.644 -1.644a1.21 1.21 0 0 1 1.712 0l2.644 2.644"></path></svg>
+          <span data-i18n="project.gallery"></span>
+        </button>
+        {project.data.demo && (
+        <a href={project.data.demo} class="demo-link" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-test-pipe-2" viewBox="7 2 10 20"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M16 2a1 1 0 0 1 0 2v14a4 4 0 1 1 -8 0v-14a1 1 0 1 1 0 -2zm-2 2h-4v7h4z"></path></svg>
+          Demo
+        </a>
+        )}
+      </div>
+    </div>
+  {
+    <img src={project.data.image} alt={project.data.title} class="default-image" draggable="false" />
+  }
+  </div>
+</article>
+
+<style>
+  .project-card {
+    margin: 20px 0 10px 0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .project-card .img-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 30px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  }
+  .project-card .img-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease-in-out;
+  }
+  .project-card .img-overlay::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 20%;
+    background: linear-gradient(to top, rgba(54, 54, 54, 0.678), rgba(0,0,0,0));
+    z-index: 1;
+    pointer-events: none;
+    transition: all 0.3s ease-in-out;
+  }
+  .project-card .img-wrapper .actions {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .project-card .img-overlay .actions{
+    transition: all 0.3s ease-in-out;
+    pointer-events: none;
+  }
+  .project-card .img-overlay .actions a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    margin-right: 10px;
+    font-size: 1.2em;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;;
+  }
+  .project-card .img-overlay .actions a:hover {
+    background-color: #0056b3;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+  }
+  .project-card .img-overlay .actions a svg {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    fill: #fff;
+  }
+  .project-card .img-overlay .actions button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #007BFF;
+    border: none;
+    color: #fff;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  }
+  .project-card .img-overlay .actions button svg {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+  }
+  .project-card .img-overlay .actions button:hover {
+    background-color: #0056b3;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+  }
+  .project-card .img-overlay:hover::before {
+    opacity: 0;
+  }
+  .project-card .img-wrapper:hover .img-overlay .actions {
+    pointer-events: all;
+    bottom: 20px;
+  }
+  .project-card img.default-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .project-card h3 {
+    font-size: 2em;
+    margin: 0;
+    margin-top: 30px;
+    color: #007BFF;
+    text-align: center;
+    text-wrap: balance;
+  }
+  .project-card p {
+    font-size: 1.5em;
+    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    color: #fff;
+    text-align: center;
+    text-wrap: balance;
+  }
+  .project-card .body {
+    font-size: 1.2em;
+    color: #ddd;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    text-wrap: balance;
+  }
+  .project-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 40px;
+  }
+  .project-card li {
+    display: inline-block;
+    background-color: #007BFF;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+    font-size: 0.9em;
+  }
+</style>
+
+<script type="module">
+  const modal = document.getElementById("gallery-modal");
+  const openBtn = document.querySelector(".project-card button");
+  const closeBtn = document.querySelector(".close-gallery");
+
+  openBtn?.addEventListener("click", () => {
+    modal?.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  });
+
+  closeBtn?.addEventListener("click", () => {
+    modal?.classList.add("hidden");
+    document.body.style.overflow = "";
+  });
+
+  modal?.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal?.classList.add("hidden");
+      document.body.style.overflow = "";
+    }
+  });
+</script>

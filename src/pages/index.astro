@@ -1,11 +1,187 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Nav from '../components/Nav.astro'
+import Home from '../components/Home.astro';
+import About from '../components/About.astro';
+import ProjectList from '../components/ProjectList.astro';
 ---
-
 <Layout>
-	<Welcome />
+    <main>
+        <Nav />
+        <Home />
+        <About />
+        <ProjectList />
+    </main>
+    <div id="gallery-modal" class="gallery-modal hidden">
+      <div class="gallery-overlay">
+        <button id="close-gallery" class="close-btn">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-circle-dashed-x" viewBox="2 2 20 20"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M8.56 3.69a9 9 0 0 0 -2.92 1.95"></path><path d="M3.69 8.56a9 9 0 0 0 -.69 3.44"></path><path d="M3.69 15.44a9 9 0 0 0 1.95 2.92"></path><path d="M8.56 20.31a9 9 0 0 0 3.44 .69"></path><path d="M15.44 20.31a9 9 0 0 0 2.92 -1.95"></path><path d="M20.31 15.44a9 9 0 0 0 .69 -3.44"></path><path d="M20.31 8.56a9 9 0 0 0 -1.95 -2.92"></path><path d="M15.44 3.69a9 9 0 0 0 -3.44 -.69"></path><path d="M14 14l-4 -4"></path><path d="M10 14l4 -4"></path></svg>
+		</button>
+        <div class="carousel-container">
+          <button class="nav-btn prev-btn">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-left" viewBox="4 7 16 10"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M5 12l14 0"></path><path d="M5 12l4 4"></path><path d="M5 12l4 -4"></path></svg>
+		  </button>
+          <div class="image-container">
+            <img id="current-image" src="" alt="Gallery Image" draggable="false"/>
+          </div>
+          <button class="nav-btn next-btn">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-right" viewBox="4 7 16 10"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M5 12l14 0"></path><path d="M15 16l4 -4"></path><path d="M15 8l4 4"></path></svg>
+		  </button>
+        </div>
+        <div class="image-counter">
+          <span id="current-index">1</span> / <span id="total-count">1</span>
+        </div>
+      </div>
+    </div>
+	<script src="/src/scripts/gallery.js"></script>
 </Layout>
+
+<style>
+  .gallery-modal {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(34, 34, 34, 0.644);
+	backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .gallery-modal.hidden {
+    display: none;
+  }
+  
+  .gallery-overlay {
+    width: 90vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #368ce979;
+    border: none;
+    color: white;
+	padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+
+  .close-btn svg {
+	width: 30px;
+	height: 30px;
+	stroke: white;
+  }
+  
+  .close-btn:hover {
+    background: #007bffb4;
+	transform: scale(1.2);
+  }
+  
+  .carousel-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 30px;
+    transition: all 0.4s ease;
+  }
+  
+  .image-container img.fade-out {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  
+  .image-container img.fade-in {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #368ce979;
+    border: none;
+    color: white;
+	padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+  .nav-btn svg {
+	width: 30px;
+	height: 30px;
+	stroke: white;
+  }
+  
+  .nav-btn:hover {
+    background: #007bffb4;
+    transform: translateY(-50%) scale(1.2);
+  }
+  
+  .nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .nav-btn:disabled:hover {
+	background: #368ce979;
+	transform: translateY(-50%) scale(1);
+  }
+
+  .prev-btn {
+    left: 30px;
+  }
+  
+  .next-btn {
+    right: 30px;
+  }
+  
+  .image-counter {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #007bff;
+    color: white;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+	font-family: 'Poppins', sans-serif;
+  }
+</style>

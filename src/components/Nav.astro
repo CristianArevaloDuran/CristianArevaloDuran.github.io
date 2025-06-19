@@ -1,0 +1,219 @@
+---
+import Language from "./Language.astro"
+---
+
+<nav>
+    <h1>
+        Cristian Arévalo {"< />"}
+    </h1>
+    <div class="items">
+        <ul>
+            <li><a data-i18n="nav.home" href="/#home"></a></li>
+            <li><a data-i18n="nav.about" href="/#about"></a></li>
+            <li><a data-i18n="nav.projects" href="/#projects"></a></li>
+            <li><a data-i18n="nav.contact" href="/#contact"></a></li>
+            <li><Language /></li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    nav {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        flex-direction: row;
+        width: 100%;
+        background-color: #ffffff;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+        transition: width 0.3s ease-in-out, 
+            top 0.3s ease-in-out,
+            background-color 0.3s ease-in-out,
+            border-radius 0.3s ease-in-out;
+    }
+    nav::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        padding: 0px;
+        border-radius: 0px;
+        background: linear-gradient(45deg,rgba(255, 56, 212, 0.48) 0%, rgba(0, 123, 255, 0.52) 100%);
+        -webkit-mask: 
+          linear-gradient(#fff 0 0) content-box, 
+          linear-gradient(#fff 0 0);
+        opacity: 0;
+        mask-composite: exclude;
+        pointer-events: none;
+        z-index: -1;
+        transition: all 0.3s ease-in-out;
+    }
+    nav h1 {
+        font-family: 'Poppins', sans-serif;
+        color: #000000;
+        margin-left: 50px;
+        font-size: 22px;
+    }
+    .items {
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        align-items: center;
+        margin-right: 50px;
+    }
+    .items ul {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        list-style: none;
+        width: 100%;
+        transition: all 0.3s ease-in-out;
+    }
+    .items ul li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease-in-out;
+    }
+    .items ul li a {
+        text-decoration: none;
+        font-family: 'Poppins', sans-serif;
+        color: #000000;
+        margin-left: 15px;
+        font-size: 18px;
+        position: relative;
+        padding: 5px 5px;
+        transition: all 0.3s ease;
+    }
+    .items ul li a::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 0;
+        border-radius: 3px;
+        z-index: -1;
+        bottom: 0;
+        left: 0;
+        background-color: #007BFF;
+        transition: height 0.2s ease-in-out;
+    }
+    .items ul li a:hover::before {
+        height: 100%;
+    }
+    .items ul li a:hover {
+        color: #ffffff;
+    }
+
+    .items ul li:nth-child(4) {
+        margin-right: 20px;
+    }
+    nav.island {
+        position: fixed;
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        border-radius: 40px;
+        z-index: 100;
+        
+        background-color: rgba(105, 105, 105, 0.562);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: width 0.3s ease-in-out, 
+            top 0.3s ease-in-out,
+            background-color 0.3s ease-in-out,
+            border-radius 0.3s ease-in-out;
+    }
+    nav.island h1 {
+        color: #ffffff;
+    }
+    nav.island .items ul li a {
+        color: #ffffff;
+    }
+    nav.island::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        padding: 5px;
+        border-radius: 40px;
+        background: linear-gradient(45deg,rgba(255, 56, 212, 0.48) 0%, rgba(0, 123, 255, 0.52) 100%);
+        -webkit-mask: 
+          linear-gradient(#fff 0 0) content-box, 
+          linear-gradient(#fff 0 0);
+        opacity: 1;
+        mask-composite: exclude;
+        pointer-events: none;
+        z-index: -1;
+        transition: all 0.3s ease-in-out;
+    }
+    nav.island .items ul {
+        padding-left: 10px;
+    }
+    nav.island .items ul li:nth-child(4) {
+        margin-right: 5px;
+    }
+    @media screen and (max-width: 1050px) {
+        nav h1 {
+            margin-left: 10px;
+            padding-left: 15px;
+            font-size: 20px;
+        }
+        .items {
+            margin-right: 10px;
+        }
+        .items ul {
+            padding: 0;
+        }
+        .items ul li a {
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        
+        .items ul li:nth-child(4) {
+            margin-right: 5px;
+        }
+        
+    }
+
+    @media screen and (max-width: 850px) {
+        nav {
+            flex-direction: column;
+            align-items: center;
+        }
+        nav h1 {
+            margin: 20px 0;
+        }
+        .items ul {
+            flex-direction: column;
+            align-items: center;
+        }
+        .items ul li a {
+            margin: 10px 0;
+        }
+        .items ul li:nth-child(4) {
+            margin-right: 0;
+        }
+        
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => { 
+      const nav = document.querySelector('nav');
+      if (!nav) return;
+
+      const navOffset = nav.offsetTop;
+        
+      window.addEventListener('scroll', () => {
+        if ((window.scrollY - 50) > navOffset) {
+          nav.classList.add('island');
+        } else {
+          nav.classList.remove('island');
+        }
+      });
+    });
+</script>
