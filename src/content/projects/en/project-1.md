@@ -10,7 +10,7 @@ gallery:
     - "/projects/1/4.webp"
     - "/projects/1/5.webp"
     - "/projects/1/6.webp"
-tags: ["NextJS", "NodeJS", "React", "MongoDB"]
+tags: ["Next.js", "Node.js", "React", "MongoDB"]
 github: "https://github.com/CristianArevaloDuran/4SFront"
 demo: ""
 ---

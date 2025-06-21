@@ -7,7 +7,7 @@ gallery:
   - "/projects/2/1.webp"
   - "/projects/2/2.webp"
   - "/projects/2/3.webp"
-tags: ["NextJS", "React"]
+tags: ["Next.js", "React"]
 github: "https://github.com/CristianArevaloDuran/CalculadoraNextJS"
 demo: "https://calculadora-next-4gf5hgjw6-cristianarevalodurans-projects.vercel.app/"
 ---
