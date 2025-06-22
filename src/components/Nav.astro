@@ -15,6 +15,12 @@ import Language from "./Language.astro"
             <li><Language /></li>
         </ul>
     </div>
+    <h1 class="dropdown-title">
+        Cristian Arévalo {"< />"}
+    </h1>
+    <button class="dropdown" id="dropdown">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-category" viewBox="3 3 18 18"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 3h-6a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1 -1v-6a1 1 0 0 0 -1 -1z"></path><path d="M20 3h-6a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1 -1v-6a1 1 0 0 0 -1 -1z"></path><path d="M10 13h-6a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1 -1v-6a1 1 0 0 0 -1 -1z"></path><path d="M17 13a4 4 0 1 1 -3.995 4.2l-.005 -.2l.005 -.2a4 4 0 0 1 3.995 -3.8z"></path></svg>
+    </button>
 </nav>
 
 <style>
@@ -52,6 +58,19 @@ import Language from "./Language.astro"
         transition: all 0.3s ease-in-out;
     }
     nav h1 {
+        font-family: 'Poppins', sans-serif;
+        color: #000000;
+        margin-left: 50px;
+        font-size: 22px;
+    }
+    nav .dropdown {
+        display: none;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+    nav .dropdown-title {
+        display: none;
         font-family: 'Poppins', sans-serif;
         color: #000000;
         margin-left: 50px;
@@ -180,12 +199,55 @@ import Language from "./Language.astro"
     }
 
     @media screen and (max-width: 850px) {
-        nav {
+        nav, nav.island {
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            height: 70px;
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
         }
         nav h1 {
             margin: 20px 0;
+            font-size: 18px;
+        }
+        nav .dropdown {
+            display: flex;
+            position: absolute;
+            background-color: #007BFF;
+            z-index: 101;
+            top: 10px;
+            right: 10px;
+            border-radius: 50%;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease-in-out;
+        }
+        nav .dropdown svg {
+            width: 20px;
+            height: 20px;
+            color: #ffffff;
+            transition: all 0.3s ease-in-out;
+        }
+        nav .dropdown:hover {
+            background-color: #005ec2;
+        }
+        nav .dropdown-title {
+            display: block;
+            position: absolute;
+            z-index: 101;
+            margin-left: 0;
+            padding: 0 15px;
+            font-size: 18px;
+            transition: all 0.35s ease-in-out;
+        }
+        
+        .items {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+
         }
         .items ul {
             flex-direction: column;
@@ -197,23 +259,59 @@ import Language from "./Language.astro"
         .items ul li:nth-child(4) {
             margin-right: 0;
         }
-        
+        .nav-enabled, .nav-enabled.island {
+            height: 50%;
+        }
+        .enabled, .enabled.island {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        .dropdown.enabled {
+            background-color: #005ec2;
+        }
+        .dropdown.enabled svg {
+            transform: rotate(-90deg);
+        }
+        .dropdown-title-enabled {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
     }
+
 </style>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => { 
-      const nav = document.querySelector('nav');
-      if (!nav) return;
+        const nav = document.querySelector('nav');
+        const dropdown = document.getElementById('dropdown');
+        const dropdownTitle = document.querySelector('.dropdown-title');
 
-      const navOffset = nav.offsetTop;
-        
-      window.addEventListener('scroll', () => {
-        if ((window.scrollY - 50) > navOffset) {
-          nav.classList.add('island');
-        } else {
-          nav.classList.remove('island');
+        if (!nav || !dropdown || !dropdownTitle) return;
+
+        dropdown.addEventListener('click', () => {
+            const items = document.querySelector('.items');
+            if (items) {
+                items.classList.toggle('enabled');
+                dropdown.classList.toggle('enabled');
+                nav.classList.toggle('nav-enabled');
+                dropdownTitle.classList.toggle('dropdown-title-enabled');
+            }
+        });
+
+        const navOffset = nav.offsetTop;
+
+        function handleScroll() {
+            if ((window.scrollY - 50) > navOffset) {
+                nav?.classList.add('island');
+            } else {
+                nav?.classList.remove('island');
+            }
         }
-      });
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll();
     });
 </script>

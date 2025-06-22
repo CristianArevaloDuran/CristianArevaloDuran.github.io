@@ -1,16 +1,16 @@
 ---
-title: "Aplicación Android"
-description: "Aplicación que calcula el promedio y las notas necesarias para una asignatura."
+title: "Aplicación de artículos"
+description: "Aplicación de artículos markdown"
 lang: "es"
 image: "/projects/4/default.webp"
 gallery:
   - "/projects/4/1.webp"
   - "/projects/4/2.webp"
   - "/projects/4/3.webp"
-  - "/projects/4/4.webp"
-  - "/projects/4/5.webp"
-tags: ["Kotlin", "Android Studio", "JetpackCompose"]
-github: "https://github.com/CristianArevaloDuran/Notas-AndroidApp"
+tags: ["Next.js", "React", "Node.js", "MongoDB", "Docker"]
+github: "https://github.com/CristianArevaloDuran/Proyecto-Frontend-3er-Semestre"
 demo: ""
 ---
-Esta aplicación permite a los estudiantes llevar un control detallado de sus calificaciones en distintas materias. Además de visualizar el promedio actual, la app ofrece una función que calcula la nota mínima que se necesita en futuras evaluaciones para alcanzar un promedio deseado.
+Esta es una aplicación web en la cual se pueden cargar artículos en formato markdown y clasificarlos tanto por categoría como por dificultad.
+
+El backend está creado usando una estructura de microservicios, en la cual cada servicio está en un contenedor de Docker.

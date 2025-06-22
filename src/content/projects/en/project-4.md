@@ -1,16 +1,16 @@
 ---
-title: "Android Application"
-description: "App that calculates the average and the required grades for a subject."
+title: "Articles Application"
+description: "Markdown articles application"
 lang: "en"
 image: "/projects/4/default.webp"
 gallery:
   - "/projects/4/1.webp"
   - "/projects/4/2.webp"
   - "/projects/4/3.webp"
-  - "/projects/4/4.webp"
-  - "/projects/4/5.webp"
-tags: ["Kotlin", "Android Studio", "JetpackCompose"]
-github: "https://github.com/CristianArevaloDuran/Notas-AndroidApp"
+tags: ["Next.js", "React", "Node.js", "MongoDB", "Docker"]
+github: "https://github.com/CristianArevaloDuran/Proyecto-Frontend-3er-Semestre"
 demo: ""
 ---
-This application allows students to keep detailed track of their grades in different subjects. In addition to displaying the current average, the app offers a feature that calculates the minimum grade needed in future assessments to reach a desired average.
+This is a web application where you can upload articles in markdown format and classify them by both category and difficulty.
+
+The backend is built using a microservices architecture, with each service running in its own Docker container.

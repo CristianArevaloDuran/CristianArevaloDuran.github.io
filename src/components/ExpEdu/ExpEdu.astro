@@ -13,7 +13,7 @@
     <div class="content">
       <h3 data-i18n="exp/edu.rappi.title"></h3>
       <span class="date" data-i18n="exp/edu.rappi.date"></span>
-      <p>Apoyo en el área de publicidad digital (ADS)</p>
+      <p data-i18n="exp/edu.rappi.desc"></p>
     </div>
   </div>
 
@@ -51,7 +51,7 @@
       content: '';
       position: absolute;
       top: -70px;
-      bottom: 0;
+      bottom: 20px;
       right: 50%;
       width: 8px;
       background: #007BFF;
@@ -142,10 +142,16 @@
       z-index: 2;
     }
 
-    // Responsive styles
-    @media (max-width: 768px) {
+    @media screen and (max-width: 1200px) {
+      .timeline {
+        display: flex;
+        margin-top: 40px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
       .timeline-item {
-        width: 100%;
+        width: 90%;
       }
       .timeline-item.left, .timeline-item.right {
         left: 0;
@@ -153,35 +159,31 @@
         text-align: center;
       }
       .timeline-item.left svg, .timeline-item.right svg {
-        position: relative;
-        top: 0;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
+        width: 20px;
+        height: 20px;
+        padding: 15px;
       }
-      .timeline::before {
-        right: 0;
-        width: 4px;
-        transform: translateX(0);
+      .timeline-item.left svg {
+        left: -10px;
+        top: -40px;
+        right: auto;
+      }
+      .timeline-item.right svg {
+        right: -10px;
+        top: -40px;
+        left: auto;
       }
       .timeline-item .content {
-        padding: 20px;
+        padding: 30px;
       }
       .timeline-item .content h3 {
-        font-size: 1.2rem;
+        font-size: 18px;
       }
       .timeline-item .content span {
-        font-size: 0.8rem;
+        font-size: 14px;
       }
       .timeline-item .content p {
-        font-size: 0.9rem;
-      }
-    }
-    @media (max-width: 480px) {
-      .timeline {
-        display: flex;
-        flex-direction: column;
-        
+        font-size: 14px;
       }
     }
 </style>

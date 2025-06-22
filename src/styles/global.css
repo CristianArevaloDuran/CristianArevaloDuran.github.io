@@ -76,3 +76,10 @@
 .download:hover {
     animation: shakeY 0.7s ease-in-out infinite;
 }
+
+@media screen and (max-width: 915px) {
+    .download {
+        font-size: 15px;
+        padding: 5px 15px;
+    }
+}

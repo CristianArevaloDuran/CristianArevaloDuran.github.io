@@ -84,9 +84,12 @@ import ExpEdu from '../components/ExpEdu/ExpEdu.astro';
     .about .content {
         font-family: 'Poppins', sans-serif;
         color: #fff;
-        font-size: 1.2rem;
+        font-size: 1.5rem;
         text-align: center;
         margin-top: 20px;
+    }
+    .about .content p {
+        text-wrap: balanced;
     }
     .about .exp-edu {
         width: 100%;
@@ -108,6 +111,7 @@ import ExpEdu from '../components/ExpEdu/ExpEdu.astro';
         border-radius: 10px;
         box-shadow: 0 5px 8px rgb(0, 0, 0);
         z-index: 2;
+        text-align: center;
     }
     .about .exp-edu .title h2::before {
         content: "";
@@ -129,5 +133,43 @@ import ExpEdu from '../components/ExpEdu/ExpEdu.astro';
         align-items: center;
         justify-content: center;
         width: 100%;
+    }
+    @media screen and (max-width: 1200px) {
+        .about {
+            width: 60%;
+        }
+        .about p {
+            font-size: 20px;
+            margin-top: 20px;
+            padding: 10px;
+        }
+
+    }
+    @media screen and (max-width: 915px) {
+        .about {
+            width: 90%;
+            margin: 150px auto 50px;
+            padding: 10px;
+        }
+        .about .hero {
+            padding: 15px 25px;
+            top: -30px;
+            border-radius: 10px;
+        }
+        .about .hero::before {
+            border-radius: 10px;
+        }
+        .about .hero h1 {
+            font-size: 1.5rem;
+        }
+        .about p {
+            font-size: 15px;
+            margin-top: 30px;
+            padding: 10px;
+        }
+        .about .exp-edu .title h2 {
+            font-size: 20px;
+            padding: 10px 15px;
+        }
     }
 </style>
