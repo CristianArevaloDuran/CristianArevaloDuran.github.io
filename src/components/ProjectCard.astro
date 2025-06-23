@@ -69,6 +69,8 @@ const { project } = Astro.props;
     justify-content: center;
   }
   .project-card .img-wrapper {
+    margin: 0;
+    padding: 0;
     position: relative;
     width: 100%;
     overflow: hidden;
@@ -78,6 +80,8 @@ const { project } = Astro.props;
   .project-card .img-overlay {
     position: absolute;
     bottom: 0;
+    margin: 0;
+    padding: 0;
     width: 100%;
     height: 100%;
     left: 50%;
@@ -108,8 +112,6 @@ const { project } = Astro.props;
     bottom: -30px;
     left: 50%;
     transform: translateX(-50%);
-  }
-  .project-card .img-overlay .actions{
     transition: all 0.3s ease-in-out;
     pointer-events: none;
     width: 100%;
@@ -176,6 +178,9 @@ const { project } = Astro.props;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+    margin: 0;
+    padding: 0;
   }
   .project-card h3 {
     font-size: 2em;
@@ -239,9 +244,6 @@ const { project } = Astro.props;
         .project-card .body {
             font-size: 1em;
             margin-top: 10px;
-        }
-        .project-card .img-overlay .actions {
-            width: 100%;
         }
         .project-card .img-overlay .actions a,
         .project-card .img-overlay .actions button {
