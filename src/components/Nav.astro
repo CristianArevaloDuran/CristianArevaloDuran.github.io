@@ -261,6 +261,8 @@ import Language from "./Language.astro"
         }
         .nav-enabled, .nav-enabled.island {
             height: 50%;
+        }
+        .nav-enabled.island {
             border-radius: 35px;
         }
         .nav-enabled::before, .nav-enabled.island::before {
@@ -283,6 +285,12 @@ import Language from "./Language.astro"
             pointer-events: none;
         }
 
+    }
+
+    @media screen and (max-height: 750px) {
+        .nav-enabled, .nav-enabled.island {
+            height: 90%;
+        }
     }
 
 </style>
