@@ -7,7 +7,7 @@ gallery:
     - "/projects/3/1.webp"
     - "/projects/3/2.webp"
     - "/projects/3/3.webp"
-tags: ["Next.js", "React", "Node.js", "MongoDB"]
+tags: ["Next.js", "React", "Node.js", "MongoDB", "TailwindCSS"]
 github: "https://github.com/CristianArevaloDuran/Gestor-Archivos"
 demo: ""
 ---

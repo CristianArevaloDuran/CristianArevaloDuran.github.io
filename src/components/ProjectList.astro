@@ -82,7 +82,44 @@ const allProjects: CollectionEntry<'projects'>[] = await getCollection('projects
   }
   .project-list .project {
     margin: 20px 0 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
   }
+  @media screen and (max-width: 1200px) {
+        .project-list {
+            width: 60%;
+        }
+        .project-list p {
+            font-size: 20px;
+            margin-top: 20px;
+            padding: 10px;
+        }
+
+    }
+    @media screen and (max-width: 915px) {
+        .project-list {
+            width: 90%;
+            margin: 150px auto 50px;
+            padding: 10px;
+        }
+        .project-list .hero {
+            padding: 15px 25px;
+            top: -30px;
+            border-radius: 10px;
+        }
+        .project-list .hero::before {
+            border-radius: 10px;
+        }
+        .project-list .hero h1 {
+            font-size: 1.5rem;
+        }
+        .project-list .project {
+            margin-top: 30px;
+        }
+    }
 </style>
 
 <script type="module">
